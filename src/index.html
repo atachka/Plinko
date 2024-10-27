@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:;base64," />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="bundle.js"></script>
+    <title>Plinko</title>
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <div class="canvas-wrapper">
+        <div class="canvas">
+          <div class="balance-amount_container">
+            <span id="balance-amount"></span>
+            &nbsp;
+            <span>USD</span>
+          </div>
+          <div class="lines-options_container">
+            <span class="line-options_title">Lines</span>
+            <div class="line-option" id="selected-line">12</div>
+            <div class="line-option">14</div>
+            <div class="line-option">16</div>
+          </div>
+          <div class="game-history_container"></div>
+          <div class="auto-play__settings_container">
+            <div class="auto-play__settings_header">
+              <div>AUTO PLAY</div>
+              <img
+                id="auto-play__settings-close-icon"
+                src="assets/images/close.png"
+                alt="Close Icon"
+              />
+            </div>
+            <div class="auto-play__settings-body">
+              <div class="auto-play__settings-type_container">
+                <div>Bet Color</div>
+                <div class="auto-play__settings-items_container">
+                  <div
+                    class="auto-play__settings-item_container auto-play__settings-bet-color-item_container"
+                  >
+                    <input type="checkbox" checked />
+                    <span class="custom-checkbox"></span>
+                    <div class="auto-play__settings-item-info_container">
+                      <div
+                        class="auto-play__settings-bet-color-circle"
+                        id="auto-play__settings-bet-color-circle--green"
+                      ></div>
+                      <div>Green</div>
+                    </div>
+                  </div>
+                  <div
+                    class="auto-play__settings-item_container auto-play__settings-bet-color-item_container"
+                  >
+                    <input type="checkbox" checked />
+                    <span class="custom-checkbox"></span>
+                    <div class="auto-play__settings-item-info_container">
+                      <div
+                        class="auto-play__settings-bet-color-circle"
+                        id="auto-play__settings-bet-color-circle--orange"
+                      ></div>
+                      <div>Orange</div>
+                    </div>
+                  </div>
+                  <div
+                    class="auto-play__settings-item_container auto-play__settings-bet-color-item_container"
+                  >
+                    <input type="checkbox" checked />
+                    <span class="custom-checkbox"></span>
+                    <div class="auto-play__settings-item-info_container">
+                      <div
+                        class="auto-play__settings-bet-color-circle"
+                        id="auto-play__settings-bet-color-circle--red"
+                      ></div>
+                      <div>Red</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="auto-play__settings-type_container">
+                <div>Number of Rounds</div>
+                <div class="auto-play__settings-items_container">
+                  <div
+                    class="auto-play__settings-item_container auto-play__settings-round-number-item_container"
+                  >
+                    <input type="checkbox" checked />
+                    <span class="custom-checkbox custom-checkbox-round"></span>
+                    <div class="auto-play__settings-item-info_container">
+                      <div>3</div>
+                    </div>
+                  </div>
+                  <div
+                    class="auto-play__settings-item_container auto-play__settings-round-number-item_container"
+                  >
+                    <input type="checkbox" />
+                    <span class="custom-checkbox custom-checkbox-round"></span>
+                    <div class="auto-play__settings-item-info_container">
+                      <div>10</div>
+                    </div>
+                  </div>
+                  <div
+                    class="auto-play__settings-item_container auto-play__settings-round-number-item_container"
+                  >
+                    <input type="checkbox" />
+                    <span class="custom-checkbox custom-checkbox-round"></span>
+                    <div class="auto-play__settings-item-info_container">
+                      <div>25</div>
+                    </div>
+                  </div>
+                  <div
+                    class="auto-play__settings-item_container auto-play__settings-round-number-item_container"
+                  >
+                    <input type="checkbox" />
+                    <span class="custom-checkbox custom-checkbox-round"></span>
+                    <div class="auto-play__settings-item-info_container">
+                      <div>100</div>
+                    </div>
+                  </div>
+                  <div
+                    class="auto-play__settings-item_container auto-play__settings-round-number-item_container"
+                  >
+                    <input type="checkbox" />
+                    <span class="custom-checkbox custom-checkbox-round"></span>
+                    <div class="auto-play__settings-item-info_container">
+                      <div>200</div>
+                    </div>
+                  </div>
+                  <div
+                    class="auto-play__settings-item_container auto-play__settings-round-number-item_container"
+                  >
+                    <input type="checkbox" />
+                    <span class="custom-checkbox custom-checkbox-round"></span>
+                    <div class="auto-play__settings-item-info_container">
+                      <div>500</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="auto-play__settings-switch-item_container">
+                <div
+                  class="auto-play__settings-switch_container"
+                  id="stop-cash-decreased"
+                >
+                  <input type="checkbox" />
+                  <span class="custom-switch"></span>
+                  <span>Stop if cash decreases by</span>
+                </div>
+                <div class="number-input-container faded-disabled">
+                  <span class="input-action-button input-action-decrease"
+                    >-</span
+                  >
+                  <input
+                    tabindex="-1"
+                    class="number-input"
+                    id="stopIfCashDecreases"
+                    value="0.00"
+                  />
+                  <span class="input-action-button input-action-increase"
+                    >+</span
+                  >
+                </div>
+              </div>
+              <div class="auto-play__settings-switch-item_container">
+                <div
+                  class="auto-play__settings-switch_container"
+                  id="stop-cash-decreased"
+                >
+                  <input type="checkbox" />
+                  <span class="custom-switch"></span>
+                  <span>Stop if single win exceeds</span>
+                </div>
+                <div class="number-input-container faded-disabled">
+                  <span class="input-action-button input-action-decrease"
+                    >-</span
+                  >
+                  <input
+                    tabindex="-1"
+                    class="number-input"
+                    id="stopIfWinExceeds"
+                    value="0.00"
+                  />
+                  <span class="input-action-button input-action-increase"
+                    >+</span
+                  >
+                </div>
+              </div>
+              <div class="auto-play__settings-more-options-button">
+                <span>More options</span>
+                <img
+                  src="./assets/images/triangle.png"
+                  alt="more options triangle"
+                />
+              </div>
+              <div class="auto-play__settings-more-options_container">
+                <div class="auto-play__settings-switch-item_container">
+                  <div
+                    class="auto-play__settings-switch_container"
+                    id="stop-cash-increased"
+                  >
+                    <input type="checkbox" />
+                    <span class="custom-switch"></span>
+                    <span>Stop if cash increased by</span>
+                  </div>
+                  <div class="number-input-container faded-disabled">
+                    <span class="input-action-button input-action-decrease"
+                      >-</span
+                    >
+                    <input
+                      tabindex="-1"
+                      class="number-input"
+                      id="stopIfCashIncreased"
+                      value="0.00"
+                    />
+                    <span class="input-action-button input-action-increase"
+                      >+</span
+                    >
+                  </div>
+                </div>
+                <div
+                  id="ifLost"
+                  class="auto-play__settings-type_container auto-play__settings-more-options-conditional-bet-item_container"
+                >
+                  <div>If I lost</div>
+                  <div class="auto-play__settings-item_container">
+                    <input type="checkbox" checked />
+                    <span class="custom-checkbox custom-checkbox-round"></span>
+                    <div class="auto-play__settings-item-info_container">
+                      <div>Return to initial bet</div>
+                    </div>
+                  </div>
+                  <div class="auto-play__settings-items_container">
+                    <div class="auto-play__settings-item_container faded">
+                      <input type="checkbox" />
+                      <span
+                        class="custom-checkbox custom-checkbox-round"
+                      ></span>
+                      <div
+                        class="auto-play__settings-item-info_container auto-play__settings-conditional-item-info_container"
+                      >
+                        <div>Increase bet by</div>
+                        <div class="number-input-container">
+                          <span
+                            class="input-action-button input-action-decrease"
+                            >-</span
+                          >
+                          <input
+                            tabindex="-1"
+                            class="number-input"
+                            id="ifLostIncrease"
+                            value="0.00"
+                          />
+                          <span
+                            class="input-action-button input-action-increase"
+                            >+</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="auto-play__settings-item_container faded">
+                      <input type="checkbox" />
+                      <span
+                        class="custom-checkbox custom-checkbox-round"
+                      ></span>
+                      <div
+                        class="auto-play__settings-item-info_container auto-play__settings-conditional-item-info_container"
+                      >
+                        <div>Decrease bet by</div>
+                        <div class="number-input-container">
+                          <span
+                            class="input-action-button input-action-decrease"
+                            >-</span
+                          >
+                          <input
+                            tabindex="-1"
+                            class="number-input"
+                            id="ifLostDecrease"
+                            value="0.00"
+                          />
+                          <span
+                            class="input-action-button input-action-increase"
+                            >+</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  id="ifWon"
+                  class="auto-play__settings-type_container auto-play__settings-more-options-conditional-bet-item_container"
+                >
+                  <div>If I Win</div>
+                  <div class="auto-play__settings-item_container">
+                    <input type="checkbox" checked />
+                    <span class="custom-checkbox custom-checkbox-round"></span>
+                    <div class="auto-play__settings-item-info_container">
+                      <div>Return to initial bet</div>
+                    </div>
+                  </div>
+                  <div class="auto-play__settings-items_container">
+                    <div class="auto-play__settings-item_container faded">
+                      <input type="checkbox" />
+                      <span
+                        class="custom-checkbox custom-checkbox-round"
+                      ></span>
+                      <div
+                        class="auto-play__settings-item-info_container auto-play__settings-conditional-item-info_container"
+                      >
+                        <div>Increase bet by</div>
+                        <div class="number-input-container">
+                          <span
+                            class="input-action-button input-action-decrease"
+                            >-</span
+                          >
+                          <input
+                            tabindex="-1"
+                            class="number-input"
+                            id="ifWonIncrease"
+                            value="0.00"
+                          />
+                          <span
+                            class="input-action-button input-action-increase"
+                            >+</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="auto-play__settings-item_container faded">
+                      <input type="checkbox" />
+                      <span
+                        class="custom-checkbox custom-checkbox-round"
+                      ></span>
+                      <div
+                        class="auto-play__settings-item-info_container auto-play__settings-conditional-item-info_container"
+                      >
+                        <div>Decrease bet by</div>
+                        <div class="number-input-container">
+                          <span
+                            class="input-action-button input-action-decrease"
+                            >-</span
+                          >
+                          <input
+                            tabindex="-1"
+                            class="number-input"
+                            id="ifWonDecrease"
+                            value="0.00"
+                          />
+                          <span
+                            class="input-action-button input-action-increase"
+                            >+</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="auto-play__settings-play_container">
+              <div class="auto-play__settings-play_button">Start Auto</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bet-options_container">
+        <div class="bet-amount-options_container">
+          <button id="bet-amount-button__decrease" class="bet-amount-button">
+            -
+          </button>
+          <div class="bet-amount__bet_container">
+            <span>Bet USD</span>
+            <input value="1" id="bet-amount-input" />
+          </div>
+          <button id="bet-amount-button__increase" class="bet-amount-button">
+            +
+          </button>
+        </div>
+        <div class="auto-play-button_container">
+          <div class="auto-play-button">
+            <img
+              src="assets/images/autoPlay.png"
+              alt="Description of the image"
+            />
+          </div>
+          <div class="auto-play-button auto-play-button--count"></div>
+        </div>
+        <div class="play-buttons_container">
+          <button id="play-button__green" class="play-button">Green</button>
+          <button id="play-button__orange" class="play-button">Orange</button>
+          <button id="play-button__red" class="play-button">Red</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

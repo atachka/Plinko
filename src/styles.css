@@ -1,0 +1,534 @@
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: goldenrod;
+  height: 100vh;
+}
+
+input {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  background-color: transparent;
+}
+
+.main-wrapper {
+  min-width: 1000px;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvas-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.canvas {
+  position: relative;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.auto-play__settings_container {
+  width: 600px;
+  height: 500px;
+  background-color: #0c1f3f;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 100px;
+  opacity: 0; /* Initially hidden */
+  pointer-events: none; /* Prevent interaction when hidden */
+  transition:
+    top 0.5s ease,
+    opacity 0.5s ease; /* Transition for top and opacity */
+  color: white;
+}
+
+/* Class to apply when you want to show the element */
+.auto-play__settings_container.visible {
+  top: 100px; /* Move down to 50px */
+  opacity: 1; /* Fade in */
+  pointer-events: auto; /* Allow interaction when visible */
+}
+
+.auto-play__settings_container::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+.auto-play__settings_container::-webkit-scrollbar-track {
+  background: #1e2b4a; /* Track background color */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.auto-play__settings_container::-webkit-scrollbar-thumb {
+  background: #3a4e75; /* Scrollbar thumb color */
+  border-radius: 10px; /* Rounded corners */
+}
+
+/* Optional: Change thumb color on hover */
+.auto-play__settings_container::-webkit-scrollbar-thumb:hover {
+  background: #5c6f9e; /* Lighter color on hover */
+}
+
+/* Custom scrollbar for Firefox */
+.auto-play__settings_container {
+  scrollbar-width: thin; /* Makes the scrollbar thinner */
+  scrollbar-color: #3a4e75 #1e2b4a; /* Thumb color and track color */
+}
+
+.auto-play__settings_header {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.auto-play__settings_header img {
+  cursor: pointer;
+}
+
+.auto-play__settings_header-close-container {
+  cursor: pointer;
+}
+
+.auto-play__settings-body {
+  padding: 20px;
+  border-top: 2px solid grey;
+  border-bottom: 2px solid grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.auto-play__settings-type_container {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #07142b;
+  gap: 10px;
+  color: #6b85a6;
+  font-size: 12px;
+}
+.auto-play__settings-items_container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  justify-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.auto-play__settings-item_container {
+  width: 100%;
+  background-color: rgb(90, 91, 99);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 0.3s ease; /* Smooth transition for background */
+}
+
+.auto-play__settings-switch-item_container {
+  width: 100%;
+  height: 50px;
+  background-color: rgb(90, 91, 99);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.auto-play__settings-bet-color-item_container:nth-child(odd):last-child {
+  grid-column: span 2;
+  width: 50%;
+}
+
+.auto-play__settings-bet-color-item_container input {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.custom-checkbox {
+  width: 15px;
+  height: 15px;
+  border: 1px solid #999;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  background-color: transparent;
+  transition: background-color 0.3s;
+}
+.custom-checkbox-round {
+  border-radius: 10px;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox {
+  background-color: green; /* Background color when checked */
+  border-color: green; /* Border color when checked */
+}
+
+.auto-play__settings-switch_container {
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Change cursor to pointer */
+  transition: opacity 0.3s ease;
+}
+
+.auto-play__settings-switch_container input[type="checkbox"] {
+  display: none; /* Hide the default checkbox */
+}
+
+.custom-switch {
+  position: relative;
+  width: 50px; /* Width of the switch */
+  height: 24px; /* Height of the switch */
+  background-color: #ccc; /* Background color when off */
+  border-radius: 12px; /* Rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition for background */
+  margin-right: 10px; /* Spacing between switch and text */
+}
+
+.custom-switch:before {
+  content: "";
+  position: absolute;
+  width: 22px; /* Width of the circle */
+  height: 22px; /* Height of the circle */
+  background-color: white; /* Circle color */
+  border-radius: 50%; /* Make it a circle */
+  transition: transform 0.3s ease; /* Smooth transition for the circle */
+  top: 1px; /* Center the circle vertically */
+  left: 1px; /* Center the circle horizontally */
+}
+
+/* Checked state styles */
+.auto-play__settings-switch_container
+  input[type="checkbox"]:checked
+  + .custom-switch {
+  background-color: #4caf50; /* Background color when on */
+}
+
+.auto-play__settings-switch_container
+  input[type="checkbox"]:checked
+  + .custom-switch:before {
+  transform: translateX(26px); /* Move the circle to the right */
+}
+
+.auto-play__settings-item-info_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  color: white;
+  width: 100%;
+}
+.auto-play__settings-conditional-item-info_container {
+  flex-direction: column;
+  font-size: 12px;
+  gap: 2px;
+}
+
+.auto-play__settings-bet-color-circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 10px;
+}
+
+#auto-play__settings-bet-color-circle--green {
+  background-color: green;
+}
+#auto-play__settings-bet-color-circle--orange {
+  background-color: orange;
+}
+#auto-play__settings-bet-color-circle--red {
+  background-color: red;
+}
+
+.auto-play__settings-more-options-button {
+  background-color: #3a4e75;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.auto-play__settings-more-options-button:active {
+  opacity: 0.5;
+}
+
+.auto-play__settings-more-options_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  gap: 20px;
+}
+
+.auto-play__settings-more-options_container.expanded {
+  max-height: 500px;
+}
+
+.auto-play__settings-play_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  padding: 10px;
+}
+
+.auto-play__settings-play_button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 50px;
+  background-color: rgb(102, 165, 8);
+  cursor: pointer;
+}
+
+.auto-play__settings-play_button:active {
+  opacity: 0.5;
+}
+
+.bet-amount-options_container {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  gap: 10px;
+  background-color: #0c1f3f;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.bet-amount__bet_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bet-amount-button {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.bet-amount__points {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey;
+}
+
+#bet-amount__points--player-points {
+  color: white;
+}
+
+.lines-options_container {
+  position: absolute;
+  right: 30px;
+  color: white;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.line-option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  border-radius: 10px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.balance-amount_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  max-width: 800px;
+}
+
+#selected-line {
+  background-color: blueviolet;
+  cursor: not-allowed;
+}
+
+.line-options div:hover {
+  background-color: #6b85a6;
+}
+
+.line-options_title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.bet-options_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  background-color: blanchedalmond;
+  padding: 20px 0;
+  gap: 10px;
+  border-radius: 20px;
+}
+
+.game-history_container {
+  position: absolute;
+  height: 200px;
+  width: 100px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.auto-play-button_container {
+  position: relative;
+}
+
+.auto-play-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  background-color: blue;
+  border-radius: 100px;
+  border: 4px solid black;
+  cursor: pointer;
+}
+
+.auto-play-button--count {
+  position: absolute;
+  background-color: red;
+  top: 0;
+  z-index: -1;
+}
+
+.auto-play-button:active {
+  opacity: 0.5;
+}
+
+.auto-play-button img {
+  width: 50px;
+}
+
+.play-buttons_container {
+  display: flex;
+  gap: 10px;
+}
+
+.play-button {
+  cursor: pointer;
+  color: white;
+  height: 40px;
+  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-size: 20px;
+}
+
+#play-button__green {
+  border: 5px solid green;
+  background-color: green;
+}
+#play-button__orange {
+  border: 5px solid orange;
+  background-color: orange;
+}
+#play-button__red {
+  border: 5px solid red;
+  background-color: red;
+}
+
+.play-button:active {
+  opacity: 0.5;
+}
+
+.number-input-container {
+  display: flex;
+  align-items: center;
+  background-color: #0c1f3f;
+  padding: 2px 5px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  transition: opacity 0.3s ease;
+}
+
+.input-action-button {
+  min-width: 25px;
+  min-height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  background-color: grey;
+  cursor: pointer;
+}
+
+.input-action-button:active {
+  opacity: 0.5;
+}
+
+.number-input {
+  width: 100px;
+}
+
+.faded {
+  opacity: 0.2;
+}
+
+.faded-disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
+.flipped {
+  transform: scaleY(-1);
+}

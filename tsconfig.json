@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2021",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node"
+  },
+  "include": ["src/**/*", "js"],
+  "exclude": ["node_modules"]
+}
